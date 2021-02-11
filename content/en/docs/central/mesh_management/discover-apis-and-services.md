@@ -3,23 +3,22 @@ title: Discover APIs and services
 linkTitle: Discover APIs and services
 weight: 30
 date: 2020-11-19
-description: Learn how to configure the Axway mesh agents to discover your APIs
-  and services.
+description: Learn how to configure the Axway Istio agents to discover your APIs and services.
 ---
-{{< alert title="Early Preview" color="warning" >}}This is a preview of the new mesh discovery agents that run separately from the current mesh governance agents, which provide full governance of your hybrid environment. The new agents are deployed and configured from the Axway CLI, and they allow for updated visibility to the mesh discovery process.{{< /alert >}}
+{{< alert title="Early Preview" color="warning" >}}This is a preview of new Istio discovery agents that run separately from the current mesh governance agents, which provide full governance of your hybrid environment. The new agents are deployed and configured from the Axway CLI, and they allow for updated visibility to the Kubernetes resource discovery process.{{< /alert >}}
 
 ## Before you begin
 
-* Before you start you must follow the article [deploy your agents with the AMPLIFY CLI](/docs/central/mesh_management/deploy-your-agents-with-the-amplify-cli). This will show you how to use the CLI to install the Mesh agents into your Kubernetes cluster. It will also create default resources to discover the demo service that gets deployed as part of the walkthrough. This article will reference the resources created from the previous article.
+* Before you start you must follow the article [deploy your agents with the Amplify CLI](/docs/central/mesh_management/deploy-your-agents-with-the-amplify-cli). This will show you how to use the CLI to install the Mesh agents into your Kubernetes cluster. It will also create default resources to discover the demo service that gets deployed as part of the walkthrough. This article will reference the resources created from the previous article.
 
 ## Prerequisites
 
-These prerequisites are required by the AMPLIFY Central CLI, which you will use to configure the mesh discovery agents.
+These prerequisites are required by the Amplify Central CLI, which you will use to configure the Istio discovery agents.
 
 * Node.js 8 LTS or later
-* Minimum AMPLIFY Central CLI version: 0.8.0
+* Minimum Amplify Central CLI version: 0.10.0
 
-For more information, see [Install AMPLIFY Central CLI](/docs/central/cli_central/cli_install/index.html).
+For more information, see [Install Amplify Central CLI](/docs/central/cli_central/cli_install/index.html).
 
 ## Overview
 
@@ -27,43 +26,43 @@ Discovery agents are services that get installed into your Kubernetes cluster as
 
 The API Discovery Agent (ADA) uses a resource called `SpecDiscovery` to find Swagger documentation exposed over an HTTP endpoint. The `SpecDiscovery` provides configuration details to the ADA to instruct it where to find documentation inside of a cluster.
 
-You can configure the ADA with one or multiple SpecDiscoveries. As long as the ADA has at least one `SpecDiscovery` it will check all new events coming from Kubernetes to check if that event meets the match criteria defined by any of the known SpecDiscoveries. If the event is triggered by a pod, and the pod meets the match criteria, then the ADA will create an APISpec to capture the existence of documentation for that pod in the cluster, and save it in AMPLIFY Central.
+You can configure the ADA with one or multiple SpecDiscoveries. As long as the ADA has at least one `SpecDiscovery` it will check all new events coming from Kubernetes to check if that event meets the match criteria defined by any of the known SpecDiscoveries. If the event is triggered by a pod, and the pod meets the match criteria, then the ADA will create an `APISpec` to capture the existence of documentation for that pod in the cluster, and save it in Amplify Central.
 
 The Resource Discovery Agent (RDA) uses a resource called `ResourceDiscovery` to find pods and services running in a cluster. The `ResourceDiscovery` provides configuration details to the RDA to instruct it where to find pods and services inside of a cluster.
 
-You can configure the RDA with multiple ResourceDiscoveries, or a single `ResourceDiscovery`. As long as the RDA has at least one `ResourceDiscovery` it will check all new events coming from Kubernetes to see if that event meets the match criteria defined by any of the known ResourceDiscoveries. If the event is triggered by a pod or service, and if the pod or service meets the match criteria, then the RDA will create a K8SResource to capture the existence of the resource and save it in AMPLIFY Central.
+You can configure the RDA with multiple ResourceDiscoveries, or a single `ResourceDiscovery`. As long as the RDA has at least one `ResourceDiscovery` it will check all new events coming from Kubernetes to see if that event meets the match criteria defined by any of the known ResourceDiscoveries. If the event is triggered by a pod or service, and if the pod or service meets the match criteria, then the RDA will create a K8SResource to capture the existence of the resource and save it in Amplify Central.
 
-For more information about the discovery agents, see [AMPLIFY Central Resources for discovering APIs and services](#AMPLIFY-Central-resources-for-discovering-APIs-and-services).
+For more information about the discovery agents, see [Amplify Central Resources for discovering APIs and services](#Amplify-Central-resources-for-discovering-APIs-and-services).
 
 ## How the discovery agents are started
 
-After deploying the `apicentral-hybrid` helm chart to your Kubernetes cluster, you can see two discovery agents running. The services are called `apic-hybrid-ada` and `apic-hybrid-rda`. These two agents are responsible for discovering pods, services, and documentation inside of your Kubernetes cluster. After they discover a service, they report back to AMPLIFY Central where the service will be represented as an API service in your environment.
+After deploying the `apicentral-hybrid` helm chart to your Kubernetes cluster, you can see two discovery agents running. The services are called `apic-hybrid-ada` and `apic-hybrid-rda`. These two agents are responsible for discovering pods, services, and documentation inside of your Kubernetes cluster. After they discover a service, they report back to Amplify Central where the service will be represented as an API service in your environment.
 
-## How the discovery agents report events to AMPLIFY Central
+## How the discovery agents report events to Amplify Central
 
-Kubernetes triggers three events: add, update, and delete. The discovery agents use these events to report back to AMPLIFY Central what has been discovered in your cluster, based on the match configuration for each agent.
+Kubernetes triggers three events: add, update, and delete. The discovery agents use these events to report back to Amplify Central what has been discovered in your cluster, based on the match configuration for each agent.
 
 ### Event: add
 
 An add event takes place after a pod or service is created.
 
-When a new pod or service is created in Kubernetes, if it meets the match criteria defined by the configuration for the agent, it will be reported back to AMPLIFY Central that a resource has been discovered.
+When a new pod or service is created in Kubernetes, if it meets the match criteria defined by the configuration for the agent, it will be reported back to Amplify Central that a resource has been discovered.
 
 ### Event: update
 
 An update event takes place when an existing pod or service is in the cluster and some change has taken place, such as changing the labels for that resource.
 
-* When a pod or service is updated in Kubernetes, if it did not previously meet the match criteria defined by the configuration for the agent, but after the update event it *does* meet the match criteria, it will be reported back to AMPLIFY Central that a new resource has been discovered.
-* When a pod or service is updated in Kubernetes, if it *did* previously meet the match criteria defined by the configuration for the agent, but after the update event it does *not* meet the match criteria, it will be reported back to AMPLIFY Central that the resource that previously matched has been deleted.
-* When a pod or service is updated in Kubernetes, if it *did* previously meet the match criteria defined by the configuration for the agent, and after the update event it *continues* to meet the match criteria, it will be reported back to AMPLIFY Central that the resource has been updated.
+* When a pod or service is updated in Kubernetes, if it did not previously meet the match criteria defined by the configuration for the agent, but after the update event it *does* meet the match criteria, it will be reported back to Amplify Central that a new resource has been discovered.
+* When a pod or service is updated in Kubernetes, if it *did* previously meet the match criteria defined by the configuration for the agent, but after the update event it does *not* meet the match criteria, it will be reported back to Amplify Central that the resource that previously matched has been deleted.
+* When a pod or service is updated in Kubernetes, if it *did* previously meet the match criteria defined by the configuration for the agent, and after the update event it *continues* to meet the match criteria, it will be reported back to Amplify Central that the resource has been updated.
 
 ### Event: delete
 
 A delete event takes place when an existing pod or service has been removed from the cluster.
 
-When a pod or service is deleted in Kubernetes, the agents check if the deleted resource was previously matched. If the resource was matched, then the agents will report back to AMPLIFY Central that the resource it currently matches has been deleted.
+When a pod or service is deleted in Kubernetes, the agents check if the deleted resource was previously matched. If the resource was matched, then the agents will report back to Amplify Central that the resource it currently matches has been deleted.
 
-## AMPLIFY Central resources for discovering APIs and services
+## Amplify Central resources for discovering APIs and services
 
 The discovery agents use eight resources:
 
@@ -76,23 +75,23 @@ The discovery agents use eight resources:
 7. **APISpec** - A resource created by the ADA to represent unique API documentation found in a cluster. The same documentation may be found across multiple pods, especially if you are running multiple instances of one pod. One APISpec is created for one unique documentation found in a cluster. If multiple pods expose the same documentation, they will be grouped together in one APISpec. APISpecs are scoped to a K8SCluster and have a reference to a `SpecDiscovery`. APISpecs are created by the ADA as a response to finding a pod that exposes documentation as described by the `SpecDiscovery`.
 8. **K8SResource** - A resource created by the RDA that represents a pod or service discovered in Kubernetes. The K8SResource is scoped to a K8SCluster, and it has a reference to a ResourceDiscoverry. K8SResources are created by the RDA as a response to finding a pod or service that meets the match criteria described by the `ResourceDiscovery`.
 
-## Log in to the AMPLIFY Central CLI
+## Log in to the Amplify Central CLI
 
-Run the following command to log into the Central CLI with your AMPLIFY Platform credentials:
+Run the following command to log into the Central CLI with your Amplify Platform credentials:
 
 ```shell
 amplify auth login --client-id apicentral
 ```
 
-A dialog box is shown. Enter your valid credentials (email address and password), and after the authorization successful message is displayed, go back to the AMPLIFY CLI.
+A dialog box is shown. Enter your valid credentials (email address and password), and after the authorization successful message is displayed, go back to the Amplify CLI.
 
-If you are a member of multiple AMPLIFY organizations, select an organization and continue.
+If you are a member of multiple Amplify organizations, select an organization and continue.
 
 ## Create a K8SCluster
 
 The K8SCluster resource is a representation of your Kubernetes cluster. All of the other resources previously mentioned will be scoped to a K8SCluster.
 
-If you previously followed [Deploy the service mesh and Axway mesh agents](/docs/central/mesh_management/add_env/#deploy-the-service-mesh-and-axway-mesh-agents), then the ADA and RDA will already be configured with your selected K8SCluster, and you can skip to [Configure the API Discovery Agent](#Configure-the-API-discovery-agent).
+If you previously followed [Deploy the service mesh and Axway Istio agents](/docs/central/mesh_management/add_env/#deploy-the-service-mesh-and-axway-mesh-agents), then the ADA and RDA will already be configured with your selected K8SCluster, and you can skip to [Configure the API Discovery Agent](#Configure-the-API-discovery-agent).
 
 If you do not have the ADA and RDA configured, or if you would like the agents to use a different K8SCluster, follow these steps:
 
@@ -381,7 +380,7 @@ Follow these steps to discover the pod:
    sunsetapp100swagger  a few seconds ago  Sunset App  K8SCluster  mesh-env
    ```
 
-If you see an APISpec named `sunsetapp100swagger` scoped to your K8SCluster, then you have successfully configured the ADA to search your Kubernetes cluster for pods exposing documentation. The `sunset` app documentation will now be visible in AMPLIFY Central.
+If you see an APISpec named `sunsetapp100swagger` scoped to your K8SCluster, then you have successfully configured the ADA to search your Kubernetes cluster for pods exposing documentation. The `sunset` app documentation will now be visible in Amplify Central.
 
 ## Defining a pod annotation
 
@@ -524,7 +523,7 @@ Follow these steps to configure a resource discovery agent:
 
    Take the name from the output of the command, and place it in the `metadata.scope.name` field.
 
-The `ResourceDiscovery` can be configured in many ways so that the RDA can identify which pods and services to match so that you can have visibility on what is running inside of your cluster within AMPLIFY Central. The RDA uses the `ResourceDiscovery` to identify which namespace to search and find pods and services. Once the agent knows the namespace to search, it will identify pods and services to match based on the labels of the pod, or by the name of the pod. The matching of the pod is done by comparing the pod labels to the `spec.resourceFilter.matchLabels` field or the `spec.resourceFilter.names` field.
+The `ResourceDiscovery` can be configured in many ways so that the RDA can identify which pods and services to match so that you can have visibility on what is running inside of your cluster within Amplify Central. The RDA uses the `ResourceDiscovery` to identify which namespace to search and find pods and services. Once the agent knows the namespace to search, it will identify pods and services to match based on the labels of the pod, or by the name of the pod. The matching of the pod is done by comparing the pod labels to the `spec.resourceFilter.matchLabels` field or the `spec.resourceFilter.names` field.
 
 Read through the description of the fields and update the `ResourceDiscovery` to make your pods and services correctly discovered in your cluster.
 

@@ -67,8 +67,8 @@ When a pod or service is deleted in Kubernetes, the agents check if the deleted 
 The discovery agents use eight resources:
 
 1. **Environment** - Resource representing an Amplify Central Environment
-2. **Mesh** - Represents a mesh, and has a reference to an Environment. Multiple K8SClusters can reference a Mesh.
-3. **MeshDiscovery** - Used to promote services discovered in a mesh to an Environment.
+2. **Mesh** - Represents a kubernetes service mesh, and has a reference to an Environment. Multiple K8SClusters can reference a Mesh.
+3. **MeshDiscovery** - Used to promote services discovered in a kubernetes cluster to an Environment.
 4. **K8SCluster** - Represents a Kubernetes cluster. It has a reference to a single Mesh resource.
 5. **ResourceDiscovery** - Configuration for the RDA for discovering pods and services in a Kubernetes cluster. It is scoped to a K8SCluster.
 6. **SpecDiscovery** - Configuration for the ADA to discover API documentation exposed over an HTTP endpoint. It is scoped to a K8SCluster

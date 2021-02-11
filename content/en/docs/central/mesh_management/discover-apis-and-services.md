@@ -68,13 +68,13 @@ When a pod or service is deleted in Kubernetes, the agents check if the deleted 
 The discovery agents use eight resources:
 
 1. **Environment** - Resource representing an Amplify Central Environment
-1. **Mesh** - Represents a mesh, and has a reference to an Environment. Multiple K8SClusters can reference a Mesh.
-2. **MeshDiscovery** - Used to promote services discovered in a mesh to an Environment.
-3. **K8SCluster** - Represents a Kubernetes cluster. It has a reference to a single Mesh resource.
-4. **ResourceDiscovery** - Configuration for the RDA for discovering pods and services in a Kubernetes cluster. It is scoped to a K8SCluster.
-5. **SpecDiscovery** - Configuration for the ADA to discover API documentation exposed over an HTTP endpoint. It is scoped to a K8SCluster
-6. **APISpec** - A resource created by the ADA to represent unique API documentation found in a cluster. The same documentation may be found across multiple pods, especially if you are running multiple instances of one pod. One APISpec is created for one unique documentation found in a cluster. If multiple pods expose the same documentation, they will be grouped together in one APISpec. APISpecs are scoped to a K8SCluster and have a reference to a `SpecDiscovery`. APISpecs are created by the ADA as a response to finding a pod that exposes documentation as described by the `SpecDiscovery`.
-7. **K8SResource** - A resource created by the RDA that represents a pod or service discovered in Kubernetes. The K8SResource is scoped to a K8SCluster, and it has a reference to a ResourceDiscoverry. K8SResources are created by the RDA as a response to finding a pod or service that meets the match criteria described by the `ResourceDiscovery`.
+2. **Mesh** - Represents a mesh, and has a reference to an Environment. Multiple K8SClusters can reference a Mesh.
+3. **MeshDiscovery** - Used to promote services discovered in a mesh to an Environment.
+4. **K8SCluster** - Represents a Kubernetes cluster. It has a reference to a single Mesh resource.
+5. **ResourceDiscovery** - Configuration for the RDA for discovering pods and services in a Kubernetes cluster. It is scoped to a K8SCluster.
+6. **SpecDiscovery** - Configuration for the ADA to discover API documentation exposed over an HTTP endpoint. It is scoped to a K8SCluster
+7. **APISpec** - A resource created by the ADA to represent unique API documentation found in a cluster. The same documentation may be found across multiple pods, especially if you are running multiple instances of one pod. One APISpec is created for one unique documentation found in a cluster. If multiple pods expose the same documentation, they will be grouped together in one APISpec. APISpecs are scoped to a K8SCluster and have a reference to a `SpecDiscovery`. APISpecs are created by the ADA as a response to finding a pod that exposes documentation as described by the `SpecDiscovery`.
+8. **K8SResource** - A resource created by the RDA that represents a pod or service discovered in Kubernetes. The K8SResource is scoped to a K8SCluster, and it has a reference to a ResourceDiscoverry. K8SResources are created by the RDA as a response to finding a pod or service that meets the match criteria described by the `ResourceDiscovery`.
 
 ## Log in to the AMPLIFY Central CLI
 

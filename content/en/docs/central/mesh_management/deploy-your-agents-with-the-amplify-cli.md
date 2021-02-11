@@ -1,3 +1,10 @@
+---
+title: Deploy your agents with AMPLIFY CLI
+linkTitle: Deploy your agents
+weight: 160
+date: 2020-12-0
+description: Use the AMPLIFY CLI to deploy Axway mesh agents 
+---
 {{< alert title="Public beta" color="warning" >}}This is a preview of the new mesh discovery agents that run separately from the current mesh governance agents, which provide full governance of your hybrid environment. The new agents are deployed and configured from the Axway CLI, and they allow for updated visibility to the mesh discovery process.{{< /alert >}}
 
 ## Before you begin

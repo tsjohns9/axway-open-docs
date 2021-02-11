@@ -1,10 +1,3 @@
----
-title: Deploy your agents with AMPLIFY CLI
-linkTitle: Deploy your agents
-weight: 160
-date: 2020-12-0
-description: Use the AMPLIFY CLI to deploy Axway mesh agents 
----
 {{< alert title="Public beta" color="warning" >}}This is a preview of the new mesh discovery agents that run separately from the current mesh governance agents, which provide full governance of your hybrid environment. The new agents are deployed and configured from the Axway CLI, and they allow for updated visibility to the mesh discovery process.{{< /alert >}}
 
 ## Before you begin
@@ -218,28 +211,28 @@ To use an existing DOSA account for the mesh agents, follow these steps:
     Created agent-secrets in the apic-control namespace.
     ```
 
-## Provide a K8S cluster resource
+## Provide an Environment resource
 
-After the details of the DOSA account have been provided you will be asked to either create a new K8S Cluster resource or provide the name of an existing K8S Cluster resource.
+After the details of the DOSA account have been provided you will be asked to either create an Environment resource or provide the name of an existing Environment resource.
 
 ```bash
-Create a new K8S Cluster
+Create a new environment
 ──────────────
 mesh-env
 ──────────────
 ```
 
-If you chose to create a new K8S Cluster, type the name and press `enter`.
+If you chose to create a new Environment, type the name and press `enter`.
 
 ```bash
-Enter a new K8S Cluster name:  mesh-demo
-Creating a new K8SCluster
-New k8scluster "mesh-demo" has been successfully created.
+Enter a new Environment name:  mesh-demo
+Creating a new Environment
+New environment "mesh-demo" has been successfully created.
 ```
 
-A message indicating that the new cluster has been created is shown.
+A message indicating that the new environment has been created is shown.
 
-At this point, the CLI will create two files (`istio-override.yaml` and `hybrid-override.yaml`) and place them in your current directory. The CLI will also create three resources (one `SpecDiscovery` and two `ResourceDiscoveries`) to discover the demo service that is packaged along with the `apicentral-hybrid` helm chart.
+At this point, the CLI will create two files (`istio-override.yaml` and `hybrid-override.yaml`) and place them in your current directory. The CLI will also create six resources. These resources will be used to discover and promote the kubernetes resources of the demo service to the provided Environment. The demo service is packaged along with the `apicentral-hybrid` helm chart. The resources are a `Mesh`, `MeshDiscovery`, `K8SCluster`, `SpecDiscovery`, and two `ResourceDiscoveries`.
 
 ## Install Istio
 

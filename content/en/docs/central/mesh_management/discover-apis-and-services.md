@@ -571,44 +571,41 @@ To discover pods and services, follow these steps:
    service/sunset labeled
    ```
 
-After labeling the pod and the service, you must update two fields on each of the ResourceDiscoveries so that the RDA can find the `sunset` pod and the `sunset` service running in the `sunset-demo` namespace based on the newly added label.
+   After labeling the pod and the service, you must update two fields on each of the ResourceDiscoveries so that the RDA can find the `sunset` pod and the `sunset` service running in the `sunset-demo` namespace based on the newly added label.
 
-1. Update the `spec.namespaceFilter.names` array and provide the namespace, which the agent should watch when looking for new pods.
+5. Update the `spec.namespaceFilter.names` array and provide the namespace, which the agent should watch when looking for new pods.
 
    ```yaml
    names:
    - sunset-demo
    ```
-2. Update `spec.resourceFilter.matchLabels` and provide the label, which the RDA will use to match pods or services.
+6. Update `spec.resourceFilter.matchLabels` and provide the label, which the RDA will use to match pods or services.
 
    ```yaml
    matchLabels:
      discover: "true"
    ```
 
-After the `ResourceDiscovery` is updated, you must create the resource, and the RDA will look for the `sunset` pod and service based on the new configuration.
+7. After the `ResourceDiscovery` is updated, you must create the resource to enable the RDA to look for the `sunset` pod and service based on the new configuration.
 
-```bash
-~ » amplify central create -f ./resource-discoveries.yaml
-✔ "resourcediscovery/sunset-pod-discovery" has successfully been created.
-✔ "resourcediscovery/sunset-service-discovery" has successfully been created.
-```
+   ```bash
+   amplify central get k8sresources -s <YOUR-K8SCLUSTER-NAME> -o yaml
+   ~ » amplify central create -f ./resource-discoveries.yaml
+   ✔ "resourcediscovery/sunset-pod-discovery" has successfully been created.
+   ✔ "resourcediscovery/sunset-service-discovery" has successfully been created.
+   ```
 
-```bash
-amplify central get k8sresources -s <YOUR-K8SCLUSTER-NAME> -o yaml
-```
+8. Finally, run the following command to return the K8SResources that were created in response to the pod that matched the `SpecDiscovery`.
 
-Run the following command to return the K8SResources that were created in response to the pod that matched the `SpecDiscovery`.
-
-```bash
-~ » amplify central get k8sresources -s mesh-env
-✔ Resource(s) has successfully been retrieved
-
-NAME                                             AGE         TITLE                      SCOPE KIND  SCOPE NAME
-pod.apic-demo.apic-hybrid-list-598f8f9b4b-jb7ds  an hour ago        pod-cli-1605565746103      K8SCluster  mesh-env
-pod.sunset-demo.sunset-749ddd444-ld7rf           a few seconds ago  sunset-pod-discovery       K8SCluster  mesh-env
-service.sunset-demo.sunset                       a few seconds ago  sunset-service-discovery   K8SCluster  mesh-env
-service.apic-demo.apic-hybrid-list               an hour ago        service-cli-1605565746103  K8SCluster  mesh-env
-```
+   ```bash
+   amplify central get k8sresources -s mesh-env
+   ✔ Resource(s) has successfully been retrieved
+   
+   NAME                                             AGE         TITLE                      SCOPE KIND  SCOPE NAME
+   pod.apic-demo.apic-hybrid-list-598f8f9b4b-jb7ds  an hour ago        pod-cli-1605565746103      K8SCluster  mesh-env
+   pod.sunset-demo.sunset-749ddd444-ld7rf           a few seconds ago  sunset-pod-discovery       K8SCluster  mesh-env
+   service.sunset-demo.sunset                       a few seconds ago  sunset-service-discovery   K8SCluster  mesh-env
+   service.apic-demo.apic-hybrid-list               an hour ago        service-cli-1605565746103  K8SCluster  mesh-env
+   ```
 
 If you see two K8SResources that include the name `sunset-demo` that are scoped to your K8SCluster, then you have successfully configured the RDA to search your Kubernetes cluster for pods and services based on your own configuration in your ResourceDiscoveries.

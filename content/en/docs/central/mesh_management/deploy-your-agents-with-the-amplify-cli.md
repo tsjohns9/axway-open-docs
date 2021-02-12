@@ -3,9 +3,9 @@ title: Deploy your agents with Amplify CLI
 linkTitle: Deploy your agents
 weight: 160
 date: 2020-12-0
-description: Use the Amplify CLI to deploy Axway Istio agents
+description: Use the Amplify CLI to deploy Axway Istio agents.
 ---
-{{< alert title="Public beta" color="warning" >}}This is a preview of new Istio discovery agents that run separately from the current mesh governance agents, which provide full governance of your hybrid environment. The new agents are deployed and configured from the Axway CLI, and they allow for updated visibility to the Kubernetes resource discovery process.{{< /alert >}}
+{{< alert title="Public beta" color="warning" >}}This is a preview of new Istio discovery agents, which run separately from the current mesh governance agents and provide full governance of your hybrid environment. The new agents are deployed and configured from the Axway CLI, and they allow for updated visibility to the Kubernetes resource discovery process.{{< /alert >}}
 
 ## Before you begin
 
@@ -83,13 +83,16 @@ If you are a member of multiple Amplify organizations, select an organization an
 
 ### Generate a self-signed certificate
 
-To generate a self-signed certificate, select `Generate self signed certificate` and press `enter`.
+To generate a self-signed certificate:
 
-```bash
-Would you like to generate a self signed certificate, or provide your own?: (Use arrow keys)
-Generate self signed certificate
-Provide certificate
-```
+1. Select `Generate self signed certificate`.
+2. Press `enter`.
+
+    ```bash
+    Would you like to generate a self signed certificate, or provide your own?: (Use arrow keys)
+    Generate self signed certificate
+    Provide certificate
+    ```
 
 The console displays two lines of text indicating that the certificate and key were created and that a Kubernetes secret was created in the `istio-system` namespace.
 
@@ -101,19 +104,22 @@ Created secret/gateway-cert in the istio-system namespace.
 
 ### Provide certificate
 
-To provide your own certificate, select `Provide certificate` and press `enter`.
+To provide your own certificate:
 
-The next prompt asks for the file path to the private key. The path is relative to the directory where you invoked the Amplify CLI command from. If your certificate and key are stored in another directory from where you are running the CLI, then you must provide the full path to the files.
+1. Select `Provide certificate`.
+2. Press `enter`.
 
-After you provide the path for both the private key and the certificate, the CLI creates the secret in the `istio-system` namespace.
+    The next prompt asks for the file path to the private key. The path is relative to the directory where you invoked the Amplify CLI command from. If your certificate and key are stored in another directory from where you are running the CLI, then you must provide the full path to the files.
 
-```bash
-Enter the name of the secret to store the Istio gateway certificate: gateway-cert
-Would you like to generate a self signed certificate, or provide your own?: Provide certificate
-Enter the file path to the private key: /Users/axway/private_key.key
-Enter the file path to the certificate: /Users/axway/certificate.crt
-Created secret/gateway-cert in the istio-system namespace.
-```
+3. Provide the path for both the private key and the certificate. After that, the CLI will create the secret in the `istio-system` namespace.
+
+    ```bash
+    Enter the name of the secret to store the Istio gateway certificate: gateway-cert
+    Would you like to generate a self signed certificate, or provide your own?: Provide certificate
+    Enter the file path to the private key: /Users/axway/private_key.key
+    Enter the file path to the certificate: /Users/axway/certificate.crt
+    Created secret/gateway-cert in the istio-system namespace.
+    ```
 
 ## Select the agents to install
 
@@ -144,7 +150,7 @@ The following prompts are related to the details about the Axway Istio agents.
     Enter a new namespace name: (apic-control)
     ```
 
-After the namespace is created, you are asked for the DevOps Service Account (DOSA) to use, so the agents can authenticate with Amplify Central. You can create a new DOSA account or select an existing one.
+3. After the namespace is created, you are asked for the DevOps Service Account (DOSA) to use, so the agents can authenticate with Amplify Central. You can create a new DOSA account or select an existing one.
 
 {{< alert title="Note">}} If you choose to use an existing DOSA account, you must provide the same public and private keys that were used to create the DOSA account you have selected. Failure to do so will cause the agents to fail to authenticate with Amplify Central.{{< /alert >}}
 
@@ -218,9 +224,9 @@ To use an existing DOSA account for the Axway Istio agents, follow these steps:
     Created agent-secrets in the apic-control namespace.
     ```
 
-## Provide an Environment resource
+## Provide an environment resource
 
-After the details of the DOSA account have been provided you will be asked to either create an Environment resource in Amplify Central or provide the name of an existing Environment resource. The Environment will hold the Kubernetes resources that were found by the discovery agent.
+After the details of the DOSA account have been provided, you are prompted to either create an environment resource in Amplify Central or provide the name of an existing environment resource. The environment will hold the Kubernetes resources that were found by the discovery agent.
 
 ```bash
 Create a new environment
@@ -229,7 +235,7 @@ mesh-env
 ──────────────
 ```
 
-If you chose to create a new Environment, type the name and press `enter`.
+If you chose to create a new environment, enter a name and press `enter`.
 
 ```bash
 Enter a new Environment name:  mesh-demo
@@ -239,7 +245,12 @@ New environment "mesh-demo" has been successfully created.
 
 A message indicating that the new environment has been created is shown.
 
-At this point, the CLI will create two files (`istio-override.yaml` and `hybrid-override.yaml`) and place them in your current directory. The CLI will also create six resources. These resources will be used to discover and promote the kubernetes resources of the demo service to the provided Environment. The demo service is packaged along with the `apicentral-hybrid` helm chart. The resources are a `Mesh`, `MeshDiscovery`, `K8SCluster`, `SpecDiscovery`, and two `ResourceDiscoveries`.
+After the new environment is created, the CLI creates the following:
+
+* `istio-override.yaml` and `hybrid-override.yaml` files, and place them in your current directory.
+* `Mesh`, `MeshDiscovery`, `K8SCluster`, `SpecDiscovery`, and two `ResourceDiscoveries` resources to be used to discover and promote the kubernetes resources of the demo service to the provided environment.
+
+The demo service is packaged along with the `apicentral-hybrid` helm chart.
 
 ## Install Istio
 
@@ -312,4 +323,4 @@ helm upgrade --install --namespace apic-control apic-hybrid axway/apicentral-hyb
 
 ## Where to go next
 
-For more information on the details of the resources and how the discovery process works, see [Discover APIs and Services](/docs/central/mesh_management/discover-apis-and-services).
+For more information on the details of the resources and how the discovery process works, see [Discover APIs and services](/docs/central/mesh_management/discover-apis-and-services).

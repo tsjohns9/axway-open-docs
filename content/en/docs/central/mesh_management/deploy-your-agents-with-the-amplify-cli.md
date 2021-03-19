@@ -5,13 +5,13 @@ weight: 160
 date: 2020-12-0
 description: Use the Amplify CLI to deploy Axway Istio agents.
 ---
-{{< alert title="Public beta" color="warning" >}}This is a preview of new Istio agents, which run separately from the Istio POC agents that provide full governance of your hybrid environment. The new agents are deployed and configured from the Axway CLI, and they monitor Kubernetes resource discovery and Istio traffic activity.{{< /alert >}}
+{{< alert title="Public beta" color="warning" >}}This is a preview of the new Istio agents, which run separately from the Istio POC agents that provide full governance of your hybrid environment. The new agents are deployed and configured from the Axway CLI, and they monitor Kubernetes resource discovery and Istio traffic activity.{{< /alert >}}
 
 ## Before you begin
 
 Ensure you have the following tools installed:
 
-* Amplify Central CLI 0.13.0 or later
+* Amplify Central CLI 0.17.0 or later
 * Helm 3.2.4 or later
 * Istioctl 1.8.2
 * Kubectl 1.18 or later
@@ -36,7 +36,7 @@ If you are a member of multiple Amplify organizations, select an organization an
 
 ## Install Axway Istio agents
 
-1. Run the `install` command to begin the installation of the Axway Istio agents. The first section of the installation collects information about the Istio deployment, such as the domain name to use for the gateway, the protocol, and the TLS certificate details.
+1. Run the `install` command to begin the installation of the Axway Istio agents. The first section of the installation collects information about the Istio deployment.
 
     ```bash
     amplify central install agents
@@ -51,12 +51,41 @@ If you are a member of multiple Amplify organizations, select an organization an
     Kubernetes
     ```
 
-2. Select `Kubernetes` as your gateway. The next prompts are related to the deployment of Istio in your cluster.
+2. Select `Kubernetes` as your gateway. The next prompt will ask if you already have Istio installed.
 
-3. Enter the domain name of the cluster:
+### If Istio is already installed
+
+The first prompt will ask if Istio is already installed. If Istio is already installed in your cluster select 'Yes'.
+
+  ```bash
+  ? Use existing Istio installation?:  (Use arrow keys)
+  ❯ Yes
+    No
+  ```
+
+The next prompt will ask for the namespace that the ingress-gateway is running in. Select the namespace from the list.
+
+  ```bash
+  ? Select the namespace where the Istio ingress gateway is running:
+    default
+  ❯ istio-system
+  ```
+
+The rest of the prompts will relate to the Istio agents. Continue on with the section [Select the agents to install](#select-the-agents-to-install)
+
+### If Istio is not installed
+When Istio is not installed you will be asked for information to create the deployment, such as the domain name to use for the gateway, the protocol, and the TLS certificate details.
+
+  ```bash
+  ? Use existing Istio installation?:  (Use arrow keys)
+    Yes
+  ❯ No
+  ```
+
+3. Enter the domain name of the cluster. If you do not know the domain name for the cluster at this time you may leave the prompt blank, and you will not be asked any details about the protocol, port, or certificate.
 
     ```bash
-    Enter the fully qualified domain name (URL) of your Kubernetes cluster:
+    Enter the public domain name for your cluster (FQDN), if available. (leave blank to skip):
     ```
 
 4. Enter the protocol to use for the Istio gateway:
@@ -136,9 +165,9 @@ The following prompts are related to the details about the Axway Istio agents.
     Traceability agent
     ```
 
-    If you choose to deploy Traceability Agent. Select the mode in which you want the Traceability aAgent to run.
+    If you choose to deploy Traceability Agent. Select the mode in which you want the Traceability Agent to run.
 
-    The ALS agent has two modes namely default and verbose. The default mode captures only the headers specified in the EnvoyFilter and the verbose mode captures all the headers in request and response flows. Once selected, you will be able to switch modes if required. Refer to [Service Mesh Traceability- Toggling the Traceability Agent](docs/central/mesh_management/traceability_agent_configuration.md#toggling-the-traceability-agent)
+    The ALS agent has two modes, default and verbose. The default mode captures only the headers specified in the EnvoyFilter. The verbose mode captures all the headers in the request and response flows. Once selected, you will be able to switch modes if required. Refer to [Service Mesh Traceability- Toggling the Traceability Agent](docs/central/mesh_management/traceability_agent_configuration.md#toggling-the-traceability-agent)
 
    ```bash
     Select Traceability Agent HTTP header publishing mode:  (Use arrow keys)
@@ -180,7 +209,7 @@ To create a new DOSA account, follow these steps:
     ──────────────
     ```
 
-2. Enter a name for the new DOSA account name. Creating a new DOSA account will override any file named `public_key.pem` or `private_key.pem` in the directory where you invoked the Amplify CLI from.
+2. Enter a name for the new DOSA account. Creating a new DOSA account will override any file named `public_key.pem` or `private_key.pem` in the directory where you invoked the Amplify CLI from.
 
     ```bash
     Select a service account (DOSA):  Create a new account
@@ -259,17 +288,24 @@ A message indicating that the new environment has been created is shown.
 
 After the new environment is created, the CLI creates the following:
 
-* `istio-override.yaml` and `hybrid-override.yaml` files, and place them in your current directory.
-* `Mesh`, `MeshDiscovery`, `K8SCluster`, `SpecDiscovery`, and two `ResourceDiscoveries` resources to be used to discover and promote the kubernetes resources of the demo service to the provided environment.
+* `istio-override.yaml` and `hybrid-override.yaml` files, and places them in your current directory.
+* `Mesh`, `MeshDiscovery`, `K8SCluster`, `SpecDiscovery`, and two `ResourceDiscoveries` resources are used to discover and promote the kubernetes resources of the demo service to the provided environment.
 
 The demo service is packaged along with the `apicentral-hybrid` helm chart.
 
 ## Install Istio
 
-Run the following command to install Istio:
+If Istio is not yet installed the final output of the install prompts will provide the command below to install Istio.
 
 ```bash
 istioctl install --set profile=demo -f istio-override.yaml
+```
+
+If Istio is already installed then no install command will be provided. Instead, the CLI will provide instructions for you to merge the provided istio-override.yaml file with your own Istio configuration.
+
+```bash
+Istio override file has been placed at /Users/Axway/istio-override.yaml
+  Please merge the generated istio-override.yaml file with your Istio configuration to allow the Traceability Agent to function.
 ```
 
 ## Finish the installation of the agents

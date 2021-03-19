@@ -5,7 +5,7 @@ weight: 30
 date: 2020-11-19
 description: Learn how to configure the Axway Istio agents to discover your APIs and services.
 ---
-{{< alert title="Early Preview" color="warning" >}}This is a preview of new Istio discovery agents, which are deployed separately from the Istio POC agents that provide full governance of your hybrid environment. The new agents are deployed and configured from the Axway CLI, and they monitor Kubernetes resource discovery.{{< /alert >}}
+{{< alert title="Early Preview" color="warning" >}}This is a preview of the new Istio agents, which run separately from previous Istio POC agents that provide full governance of your hybrid environment. The new agents are deployed and configured from the Axway CLI, and they monitor Kubernetes resource discovery.{{< /alert >}}
 
 ## Before you begin
 
@@ -17,14 +17,14 @@ This page will reference the resources created from the [Deploy your agents with
 
 These prerequisites are required by the Amplify Central CLI, which you will use to configure the Istio discovery agents.
 
-* Node.js version >= 10.13.0 and <= 12.14.1
+* Node.js >= 10.13.0 and <= 12.14.1
 * Minimum Amplify Central CLI version: 0.17.0
 
 For more information, see [Install Amplify Central CLI](/docs/central/cli_central/cli_install/index.html).
 
 ## Overview
 
-Discover agents are services that get installed into your Kubernetes cluster as part of deploying the `apicentral-hybrid` helm chart.
+Discovery agents are services that get installed into your Kubernetes cluster as part of deploying the `apicentral-hybrid` helm chart.
 
 The API Discovery Agent (ADA) uses a resource called `SpecDiscovery` to find Swagger documentation exposed over an HTTP endpoint. The `SpecDiscovery` provides configuration details to the ADA to instruct it where to find documentation inside of a cluster.
 

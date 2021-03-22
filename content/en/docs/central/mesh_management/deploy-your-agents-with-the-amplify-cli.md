@@ -57,19 +57,19 @@ If you are a member of multiple Amplify organizations, select an organization an
 
 1. The first prompt will ask if Istio is already installed. If Istio is already installed in your cluster select 'Yes'.
 
-  ```bash
-  ? Use existing Istio installation?:  (Use arrow keys)
-  ❯ Yes
-    No
-  ```
+    ```bash
+    ? Use existing Istio installation?:  (Use arrow keys)
+    ❯ Yes
+      No
+    ```
 
 2. The next prompt will ask for the namespace that the ingress-gateway is running in. Select the namespace from the list.
 
-  ```bash
-  ? Select the namespace where the Istio ingress gateway is running:
-    default
-  ❯ istio-system
-  ```
+    ```bash
+    ? Select the namespace where the Istio ingress gateway is running:
+      default
+    ❯ istio-system
+    ```
 
 The rest of the prompts will relate to the Istio agents. Continue on with the section [Select the agents to install](#select-the-agents-to-install)
 
@@ -77,11 +77,11 @@ The rest of the prompts will relate to the Istio agents. Continue on with the se
 
 1. When Istio is not installed you will be asked for information to create the deployment, such as the domain name to use for the gateway, the protocol, and the TLS certificate details.
 
-  ```bash
-  ? Use existing Istio installation?:  (Use arrow keys)
-    Yes
-  ❯ No
-  ```
+    ```bash
+    ? Use existing Istio installation?:  (Use arrow keys)
+      Yes
+    ❯ No
+    ```
 
 2. Enter the domain name of the cluster. If you do not know the domain name for the cluster at this time you may leave the prompt blank, and you will not be asked any details about the protocol, port, or certificate.
 

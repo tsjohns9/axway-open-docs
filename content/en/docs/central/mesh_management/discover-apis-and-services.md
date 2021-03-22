@@ -106,7 +106,7 @@ If you do not have the ADA and RDA configured, or if you would like the agents t
   kind: Environment
   spec:
     description: demo hybrid env
-	```
+  ```
 
 2. Create a Mesh resource. Copy the content below into a file called `mesh.yaml`.
 
@@ -117,11 +117,11 @@ If you do not have the ADA and RDA configured, or if you would like the agents t
   name: mesh
   title: mesh
   spec: {}
-	```
+  ```
 
 3. Create a MeshDiscovery. Copy the content below into a file called `mesh-discovery.yaml`. The MeshDiscovery should have the `metadata.scope.name` field set to the name of the Mesh resource, and it should have the `spec.environmentRef` set to the name of the Environment resource.
 
-		```yaml
+    ```yaml
     apiVersion: v1alpha1
     group: management
     kind: MeshDiscovery
@@ -133,11 +133,11 @@ If you do not have the ADA and RDA configured, or if you would like the agents t
         name: mesh
     spec:
       environmentRef: env
-		```
+    ```
 
 4. Create a K8SCluster. Copy the content below into a file called `k8s-cluster.yaml`. The K8SCluster should have the `spec.mesh` field set to the name of the Mesh resource.
 
-   ```yaml
+  ```yaml
   apiVersion: v1alpha1
   group: management
   kind: K8SCluster

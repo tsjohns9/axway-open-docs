@@ -55,7 +55,7 @@ If you are a member of multiple Amplify organizations, select an organization an
 
 ### If Istio is already installed
 
-The first prompt will ask if Istio is already installed. If Istio is already installed in your cluster select 'Yes'.
+1. The first prompt will ask if Istio is already installed. If Istio is already installed in your cluster select 'Yes'.
 
   ```bash
   ? Use existing Istio installation?:  (Use arrow keys)
@@ -63,7 +63,7 @@ The first prompt will ask if Istio is already installed. If Istio is already ins
     No
   ```
 
-The next prompt will ask for the namespace that the ingress-gateway is running in. Select the namespace from the list.
+2. The next prompt will ask for the namespace that the ingress-gateway is running in. Select the namespace from the list.
 
   ```bash
   ? Select the namespace where the Istio ingress gateway is running:
@@ -74,7 +74,8 @@ The next prompt will ask for the namespace that the ingress-gateway is running i
 The rest of the prompts will relate to the Istio agents. Continue on with the section [Select the agents to install](#select-the-agents-to-install)
 
 ### If Istio is not installed
-When Istio is not installed you will be asked for information to create the deployment, such as the domain name to use for the gateway, the protocol, and the TLS certificate details.
+
+1. When Istio is not installed you will be asked for information to create the deployment, such as the domain name to use for the gateway, the protocol, and the TLS certificate details.
 
   ```bash
   ? Use existing Istio installation?:  (Use arrow keys)
@@ -82,13 +83,13 @@ When Istio is not installed you will be asked for information to create the depl
   ❯ No
   ```
 
-3. Enter the domain name of the cluster. If you do not know the domain name for the cluster at this time you may leave the prompt blank, and you will not be asked any details about the protocol, port, or certificate.
+2. Enter the domain name of the cluster. If you do not know the domain name for the cluster at this time you may leave the prompt blank, and you will not be asked any details about the protocol, port, or certificate.
 
     ```bash
     Enter the public domain name for your cluster (FQDN), if available. (leave blank to skip):
     ```
 
-4. Enter the protocol to use for the Istio gateway:
+3. Enter the protocol to use for the Istio gateway:
 
     ```bash
     Enter the protocol to use for the ingress gateway:
@@ -96,19 +97,19 @@ When Istio is not installed you will be asked for information to create the depl
     HTTPS
     ```
 
-5. Enter the port on which you want to expose the gateway. If you choose `HTTPS`, the default port will be `443`. If you choose `HTTP`, the default port will be `8080`.
+4. Enter the port on which you want to expose the gateway. If you choose `HTTPS`, the default port will be `443`. If you choose `HTTP`, the default port will be `8080`.
 
     ```bash
     Enter the Kubernetes cluster port: (443)
     ```
 
-6. Enter the name of the Kubernetes secret to store the certificate. By default, Istio gets deployed in the `istio-system` namespace, and the secret for the gateway certificate is saved to this namespace. The creation of this namespace is handled by the deployment of Istio, if it does not exists yet.
+5. Enter the name of the Kubernetes secret to store the certificate. By default, Istio gets deployed in the `istio-system` namespace, and the secret for the gateway certificate is saved to this namespace. The creation of this namespace is handled by the deployment of Istio, if it does not exists yet.
 
    ```bash
    Enter the name of the secret to store the Istio gateway certificate: (gateway-cert)
    ```
 
-7. Choose if you would like to generate a self-signed certificate or provide your own certificate.
+6. Choose if you would like to generate a self-signed certificate or provide your own certificate.
 
     If you choose to generate a certificate, the Amplify CLI will use OpenSSL to create the private key and the certificate, which will be placed in the current directory where you are running the Amplify CLI. If you choose to provide an existing certificate, you will be prompted with the file path to the private key and the certificate.
 

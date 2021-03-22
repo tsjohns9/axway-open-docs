@@ -90,6 +90,7 @@ A dialog box is shown. Enter your valid credentials (email address and password)
 If you are a member of multiple Amplify organizations, select an organization and continue.
 
 ## Create an Amplify Central Environment
+
 The Environment resource is a representation of your Kubernetes cluster. In order for resources to be discovered the agents must be connected to an Environment and a K8SCluster.
 
 If you previously followed [Deploy the service mesh and Axway Istio agents](/docs/central/mesh_management/add_env/#deploy-the-service-mesh-and-axway-mesh-agents), then the ADA and RDA will already be configured with your selected Environment and K8SCluster, and you can skip to [Configure the API Discovery Agent](#configure-the-api-discovery-agent).

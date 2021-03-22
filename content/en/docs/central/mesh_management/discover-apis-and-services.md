@@ -165,7 +165,7 @@ If you do not have the ADA and RDA configured, or if you would like the agents t
     ✔ "k8scluster/k8s-mesh" has successfully been created.
      ```
 
-8. After the K8SCluster is created, you must update the `apic-hybrid-ada` and `apic-hybrid-rda` pods to connect to the new K8SCluster. Run the following commands to update each pod with the new environment variable:
+7. After the K8SCluster is created, you must update the `apic-hybrid-ada` and `apic-hybrid-rda` pods to connect to the new K8SCluster. Run the following commands to update each pod with the new environment variable:
 
     ```bash
     ~ » kubectl set env deployment/apic-hybrid-ada CLUSTERNAME=<YOUR-K8SCLUSTER-NAME> -n apic-control

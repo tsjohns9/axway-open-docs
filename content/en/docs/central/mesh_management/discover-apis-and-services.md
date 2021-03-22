@@ -99,25 +99,25 @@ If you do not have the ADA and RDA configured, or if you would like the agents t
 
 1. Create an Environment. Copy the content below into a file called `environment.yaml`. You may change the names of the following resources to fit your needs.
 
-  ```yaml
-  apiVersion: v1alpha1
-  title: env
-  name: env
-  kind: Environment
-  spec:
-    description: demo hybrid env
-  ```
+    ```yaml
+    apiVersion: v1alpha1
+    title: env
+    name: env
+    kind: Environment
+    spec:
+      description: demo hybrid env
+    ```
 
 2. Create a Mesh resource. Copy the content below into a file called `mesh.yaml`.
 
-  ```yaml
-  apiVersion: v1alpha1
-  group: management
-  kind: Mesh
-  name: mesh
-  title: mesh
-  spec: {}
-  ```
+    ```yaml
+    apiVersion: v1alpha1
+    group: management
+    kind: Mesh
+    name: mesh
+    title: mesh
+    spec: {}
+    ```
 
 3. Create a MeshDiscovery. Copy the content below into a file called `mesh-discovery.yaml`. The MeshDiscovery should have the `metadata.scope.name` field set to the name of the Mesh resource, and it should have the `spec.environmentRef` set to the name of the Environment resource.
 
@@ -137,45 +137,45 @@ If you do not have the ADA and RDA configured, or if you would like the agents t
 
 4. Create a K8SCluster. Copy the content below into a file called `k8s-cluster.yaml`. The K8SCluster should have the `spec.mesh` field set to the name of the Mesh resource.
 
-  ```yaml
-  apiVersion: v1alpha1
-  group: management
-  kind: K8SCluster
-  name: k8s-mesh
-  title: k8scluster
-  spec:
-    mesh: mesh
-  ```
+    ```yaml
+    apiVersion: v1alpha1
+    group: management
+    kind: K8SCluster
+    name: k8s-mesh
+    title: k8scluster
+    spec:
+      mesh: mesh
+    ```
 
 5. Create the resources:
 
-  ```bash
-  amplify central create -f ./environment.yaml
-  amplify central create -f ./mesh.yaml
-  amplify central create -f ./mesh-discovery.yaml
-  amplify central create -f ./k8s-cluster.yaml
-  ```
+    ```bash
+    amplify central create -f ./environment.yaml
+    amplify central create -f ./mesh.yaml
+    amplify central create -f ./mesh-discovery.yaml
+    amplify central create -f ./k8s-cluster.yaml
+    ```
 
 6. If the commands were successful, you should see output indicating that the resources were created:
 
-  ```bash
-  ✔ "environment/env" has successfully been created.
-  ✔ "mesh/mesh" has successfully been created.
-  ✔ "meshdiscovery/mesh-discovery" has successfully been created.
-  ✔ "k8scluster/k8s-mesh" has successfully been created.
-   ```
+    ```bash
+    ✔ "environment/env" has successfully been created.
+    ✔ "mesh/mesh" has successfully been created.
+    ✔ "meshdiscovery/mesh-discovery" has successfully been created.
+    ✔ "k8scluster/k8s-mesh" has successfully been created.
+     ```
 
 8. After the K8SCluster is created, you must update the `apic-hybrid-ada` and `apic-hybrid-rda` pods to connect to the new K8SCluster. Run the following commands to update each pod with the new environment variable:
 
-   ```bash
-   ~ » kubectl set env deployment/apic-hybrid-ada CLUSTERNAME=<YOUR-K8SCLUSTER-NAME> -n apic-control
-   deployment.extensions/apic-hybrid-ada env updated
-   ```
+    ```bash
+    ~ » kubectl set env deployment/apic-hybrid-ada CLUSTERNAME=<YOUR-K8SCLUSTER-NAME> -n apic-control
+    deployment.extensions/apic-hybrid-ada env updated
+    ```
 
-   ```bash
-   ~ » kubectl set env deployment/apic-hybrid-rda CLUSTERNAME=<YOUR-K8SCLUSTER-NAME> -n apic-control
-   deployment.extensions/apic-hybrid-ada env updated
-   ```
+    ```bash
+    ~ » kubectl set env deployment/apic-hybrid-rda CLUSTERNAME=<YOUR-K8SCLUSTER-NAME> -n apic-control
+    deployment.extensions/apic-hybrid-ada env updated
+    ```
 
 ## Deploy the Sunset app
 

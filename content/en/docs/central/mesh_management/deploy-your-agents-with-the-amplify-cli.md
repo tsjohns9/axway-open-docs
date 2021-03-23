@@ -139,7 +139,7 @@ Created secret/gateway-cert in the istio-system namespace.
 
 2. Press `enter`.
 
-3. Provide the path for both the private key and the certificate. Note that the path is relative to the directory where you invoked the Amplify CLI command from. If your certificate and key are stored in another directory from where you are running the CLI, then you must provide the full path to the files. 
+3. Provide the path for both the private key and the certificate. Note that the path is relative to the directory where you invoked the Amplify CLI command from. If your certificate and key are stored in another directory from where you are running the CLI, then you must provide the full path to the files.
 
     ```bash
     Enter the name of the secret to store the Istio gateway certificate: gateway-cert

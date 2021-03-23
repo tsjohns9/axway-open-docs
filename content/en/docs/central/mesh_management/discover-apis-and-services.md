@@ -11,7 +11,7 @@ description: Learn how to configure the Axway Istio agents to discover your APIs
 
 Before you start, see [Deploy your agents with the Amplify CLI](/docs/central/mesh_management/deploy-your-agents-with-the-amplify-cli) to learn how to use the CLI to install the mesh agents into your Kubernetes cluster and to create default resources to discover the demo service that gets deployed.
 
-This page will reference the resources created from the [Deploy your agents with the Amplify CLI](/docs/central/mesh_management/deploy-your-agents-with-the-amplify-cli) procedure.
+This page references the resources created from the [Deploy your agents with the Amplify CLI](/docs/central/mesh_management/deploy-your-agents-with-the-amplify-cli) procedure.
 
 ## Prerequisites
 

@@ -28,7 +28,7 @@ Discovery agents are services that get installed into your Kubernetes cluster as
 
 The API Discovery Agent (ADA) uses a resource called `SpecDiscovery` to find Swagger documentation exposed over an HTTP endpoint. The `SpecDiscovery` provides configuration details to the ADA to instruct it where to find documentation inside of a cluster.
 
-You can configure the ADA with one or multiple SpecDiscoveries. As long as the ADA has at least one `SpecDiscovery` it will check all new events coming from Kubernetes for event meets the match criteria defined by any of the known SpecDiscoveries. If the event is triggered by a pod, and the pod meets the match criteria, then the ADA will create an `APISpec` to capture the existence of documentation for that pod in the cluster, and save it in Amplify Central.
+You can configure the ADA with one or multiple SpecDiscoveries. As long as the ADA has at least one `SpecDiscovery` it will check all new events coming from Kubernetes for events that meet the match criteria defined by any of the known SpecDiscoveries. If the event is triggered by a pod, and the pod meets the match criteria, then the ADA will create an `APISpec` to capture the existence of documentation for that pod in the cluster, and save it in Amplify Central.
 
 The Resource Discovery Agent (RDA) uses a resource called `ResourceDiscovery` to find pods and services running in a cluster. The `ResourceDiscovery` provides configuration details to the RDA to instruct it where to find pods and services inside of a cluster.
 
@@ -91,11 +91,11 @@ If you are a member of multiple Amplify organizations, select an organization an
 
 ## Create an Amplify Central Environment
 
-The Environment resource is a representation of your Kubernetes cluster. In order for resources to be discovered the agents must be connected to an Environment and a K8SCluster.
+The Environment resource is a representation of your Kubernetes cluster. In order for resources to be discovered, the agents must be connected to an Environment and a K8SCluster.
 
 If you previously followed [Deploy the service mesh and Axway Istio agents](/docs/central/mesh_management/add_env/#deploy-the-service-mesh-and-axway-mesh-agents), then the ADA and RDA will already be configured with your selected Environment and K8SCluster, and you can skip to [Configure the API Discovery Agent](#configure-the-api-discovery-agent).
 
-If you do not have the ADA and RDA configured, or if you would like the agents to use a different Environment follow the steps below:
+If you do not have the ADA and RDA configured, or if you would like the agents to use a different Environment, follow the steps below:
 
 1. Create an Environment. Copy the content below into a file called `environment.yaml`. You may change the names of the following resources to fit your needs.
 
@@ -400,7 +400,7 @@ Follow these steps to discover the pod:
    sunsetapp100swagger  a few seconds ago  Sunset App  K8SCluster  k8s-mesh
    ```
 
-If you see an APISpec named `sunsetapp100swagger` scoped to your K8SCluster, then you have successfully configured the ADA to search your Kubernetes cluster for pods exposing documentation. The `sunset` app documentation will now be visible in Amplify Central.
+If you see an APISpec named `sunsetapp100swagger` scoped to your K8SCluster, then you have successfully configured the ADA to search your Kubernetes cluster for pods exposing documentation. The `sunset` app documentation is now be visible in Amplify Central.
 
 ### Defining a pod annotation
 

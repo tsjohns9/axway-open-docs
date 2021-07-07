@@ -6,14 +6,12 @@ date: 2020-12-0
 description: Use the Axway CLI to deploy Axway Istio agents.
 ---
 
-{{< alert title="Public beta" color="warning" >}}This is a preview of the new Istio agents, which run separately from previous Istio POC agents that provide full governance of your hybrid environment. The new agents are deployed and configured from the Axway CLI, and they monitor Kubernetes resource discovery and Istio traffic activity.{{< /alert >}}
-
 ## Before you begin
 
 Ensure you have the following tools installed:
 
 * Axway Central CLI 1.7.0 or later
-* Helm 3.2.4 or later
+* Helm 3.2.4 or later jeroen
 * Istioctl 1.8.2
 * Kubectl 1.18 or later
 * Node.js >= 10.13.0 and <= 12.14.1
